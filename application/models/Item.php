@@ -27,4 +27,15 @@ class Item extends CI_Model {
         }
         return $dbdata;
     }
+
+    public function updateItem($id,$data){
+        $this->db->where('list_id', $id);
+        $this->db->update('Items', $data);
+    }
+
+    public function delete($id)
+    {
+        $this->db->where('item_id', $id);
+        $this->db->delete('Items');
+    }
 }

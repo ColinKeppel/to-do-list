@@ -22,4 +22,15 @@
          }
          return $dbdata;
      }
+
+     public function updateList($id,$data){
+         $this->db->where('list_id', $id);
+         $this->db->update('Lists', $data);
+     }
+
+     public function delete($id)
+     {
+         $this->db->where('list_id', $id);
+         $this->db->delete('Lists');
+     }
  }

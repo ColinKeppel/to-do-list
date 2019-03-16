@@ -27,4 +27,20 @@ class Main extends CI_Controller {
         }
     }
 
+    public function update() {
+        $this->load->model('Lists');
+        $id= $this->input->post('id');
+        $data = array(
+            'list_name' => $this->input->post('listName')
+        );
+        $this->Lists->updateList($id,$data);
+        redirect('Main/index');
+    }
+
+    public function delete($id)
+    {
+        $this->load->model('Lists');
+        $this->Lists->delete($id);
+        redirect('Main/index');
+    }
 }

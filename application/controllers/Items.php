@@ -33,4 +33,25 @@ class Items extends CI_Controller {
             redirect('Items/index');
         }
     }
+
+    public function update() {
+        $this->load->model('Item');
+        $id= $this->input->post('itemId');
+        $data = array(
+            'item_id' => $this->input->post('itemId'),
+            'list_id' => $this->input->post('listId'),
+            'item_name' => $this->input->post('editItemName'),
+            'item_details' => $this->input->post('editItemDetails'),
+            'item_time' => $this->input->post('editItemTime')
+        );
+        $this->Item->updateItem($id,$data);
+        redirect('Items/index');
+    }
+
+    public function delete($id)
+    {
+        $this->load->model('Item');
+        $this->Item->delete($id);
+        redirect('Items/index');
+    }
 }
