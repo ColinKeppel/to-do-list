@@ -11,7 +11,7 @@
 </head>
 <body class="p-5">
 <div class="mx-3">
-    <h5><i class="fas fa-list-ul mr-3 "></i>To-Do List<a href="#" data-toggle="modal" data-target="#newList"><i class="fas fa-plus ml-2"></i></a></h5>
+    <h5><i onclick class="fas fa-filter mr-2"></i>To-Do List<a href="#" data-toggle="modal" data-target="#newList"><i class="fas fa-plus ml-2"></i></a></h5>
 </div>
 
 <div class="mx-3 d-flex flex-wrap">
@@ -22,7 +22,7 @@
                 <?php foreach ($ItemData as $Item): ?>
                 <?php if($List['list_id'] === $Item['list_id']): ?>
                         <ul class="list-group">
-                            <li onclick="setUpItemEdit(editItem, '<?php echo $Item["list_id"] ?>', '<?php echo $Item["list_id"] ?>', '<?php echo $Item["item_name"] ?>', '<?php echo $Item["item_details"] ?>', '<?php echo $Item["item_time"] ?>')" class="list-group-item d-flex justify-content-between align-items-center"><a href="<?php echo base_url("Items/delete/"). $Item['item_id']?>"><i class="far fa-trash-alt mr-2"></i></a><a href="#" data-toggle="modal" data-target="#viewItem"><?php echo $Item['item_name']?></a><a href="#" data-toggle="modal" data-target="#editItem"><i class="fas fa-edit ml-2"></i></a></li>
+                            <li onclick="setUpItemEdit(editItem, '<?php echo $Item["item_id"] ?>', '<?php echo $Item["list_id"] ?>', '<?php echo $Item["item_name"] ?>', '<?php echo $Item["item_details"] ?>', '<?php echo $Item["item_time"] ?>', '<?php echo $Item["item_status"] ?>')" class="list-group-item d-flex justify-content-between align-items-center"><a href="<?php echo base_url("Items/delete/"). $Item['item_id']?>"><i class="far fa-trash-alt mr-2"></i></a><?php echo $Item['item_name']?><a href="#" data-toggle="modal" data-target="#editItem"><i class="fas fa-edit ml-2"></i></a></li>
                 <?php endif; ?>
                 <?php endforeach; ?>
                             <li onclick="setUpItemAdd(NewListItem, '<?php echo $List["list_id"] ?>')" class="list-group-item d-flex justify-content-between align-items-center"><a href="#" data-toggle="modal" data-target="#NewListItem"><i class="fas fa-plus mr-2"></i>New Item</a>
@@ -83,86 +83,67 @@
     </div>
 </form>
 <!--Model Edit List-->
-<form action="<?php echo base_url("Main/update/")?>" method="post">
-    <div class="modal fade" id="editList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="NewListItemTitle">Edit To-Do List</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h5>List Name</h5>
-                    <input name="listName" type="text" class="listName form-control mb-2" value="<?php echo $List['list_name']; ?>">
-                    <input name="id" type="text" class="itemId form-control mb-2" value="" hidden>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Edit list</button>
-                </div>
+<div class="modal fade" id="editList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="NewListItemTitle">Edit To-Do List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <form action="<?php echo base_url("Main/update/")?>" method="post">
+            <div class="modal-body">
+                <h5>List Name</h5>
+                <input name="listName" type="text" class="listName form-control mb-2" value="">
+                <input name="id" type="text" class="itemId form-control mb-2" value="" hidden>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Edit list</button>
+            </div>
+            </form>
         </div>
     </div>
-</form>
+</div>
 <!--Model Edit Item-->
-<form action="<?php echo base_url("Items/update/")?>" method="post">
-    <div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="NewListItemTitle">Edit To-Do Item</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+<div class="modal fade" id="editItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="NewListItemTitle">Edit To-Do Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?php echo base_url("Items/update/")?>" method="post">
                 <div class="modal-body">
-                    <input name="itemId" type="text" class="itemId form-control mb-2" value="" hidden>
-                    <input name="listId" type="text" class="listId form-control mb-2" value="" hidden>
+                    <input name="itemId" type="text" class="itemId form-control mb-2" value="" >
+                    <input name="listId" type="text" class="listId form-control mb-2" value="" >
                     <h5>Item name</h5>
-                    <input name="editItemName" type="text" class="itemName form-control mb-2" value="<?php echo $Item['item_name'] ?>">
+                    <input name="editItemName" type="text" class="itemName form-control mb-2" value="">
                     <h5>Description</h5>
-                    <input name="editItemDetails" type="text" class="itemDetails form-control mb-2" value="<?php echo $Item['item_details'] ?>">
+                    <input name="editItemDetails" type="text" class="itemDetails form-control mb-2" value="">
                     <h5>Time</h5>
-                    <input name="editItemTime" type="number" class="itemTime form-control" value="<?php echo $Item['item_time'] ?>">
+                    <input name="editItemTime" type="number" class="itemTime form-control" value="">
+                    <div class="form-check">
+                        <h5>Status:</h5>
+                        <div class="radio">
+                            <label><input type="radio" value="Done" name="editStatus">Done</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" value="Not done" name="editStatus">Not done</label>
+                        </div>
                     </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Edit item</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-</form>
-<!--Model View Item-->
-<form action="<?php echo base_url("Items/update/")?>" method="post">
-    <div class="modal fade" id="viewItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="NewListItemTitle">Edit To-Do Item</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input name="itemId" type="text" class="itemId form-control mb-2" value="" hidden>
-                    <input name="listId" type="text" class="listId form-control mb-2" value="" hidden>
-                    <h5>Item name</h5>
-                    <input name="editItemName" type="text" class="itemName form-control mb-2" value="<?php echo $Item['item_name'] ?>" disabled>
-                    <h5>Description</h5>
-                    <input name="editItemDetails" type="text" class="itemDetails form-control mb-2" value="<?php echo $Item['item_details'] ?>" disabled>
-                    <h5>Time</h5>
-                    <input name="editItemTime" type="number" class="itemTime form-control" value="<?php echo $Item['item_time'] ?>" disabled>
-                    </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
+</div>
 <script>
 //Get listName for element
     function setUpEditListModal(modal, listName) {
@@ -173,7 +154,7 @@
     {
         modal.getElementsByClassName("itemId")[0].value = listId;
     }
-    function setUpItemEdit(modal, itemId, listId, NewItemName, NewItemDetails, NewItemTime) {
+    function setUpItemEdit(modal, itemId, listId, NewItemName, NewItemDetails, NewItemTime,) {
         modal.getElementsByClassName("itemId")[0].value = itemId;
         modal.getElementsByClassName("listId")[0].value = listId;
         modal.getElementsByClassName("itemName")[0].value = NewItemName;
