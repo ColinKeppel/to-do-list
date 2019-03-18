@@ -36,15 +36,15 @@ class Items extends CI_Controller {
 
     public function update() {
         $this->load->model('Item');
-        $id= $this->input->post('itemId');
+        $itemId = $this->input->post('itemId');
+        $listId = $this->input->post('listId');
         $data = array(
-            'item_id' => $this->input->post('itemId'),
-            'list_id' => $this->input->post('listId'),
             'item_name' => $this->input->post('editItemName'),
             'item_details' => $this->input->post('editItemDetails'),
-            'item_time' => $this->input->post('editItemTime')
+            'item_time' => $this->input->post('editItemTime'),
+            'item_status' => $this->input->post('editStatus')
         );
-        $this->Item->updateItem($id,$data);
+        $this->Item->updateItem($itemId, $listId, $data);
         redirect('Items/index');
     }
 

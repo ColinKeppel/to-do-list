@@ -28,8 +28,9 @@ class Item extends CI_Model {
         return $dbdata;
     }
 
-    public function updateItem($id,$data){
-        $this->db->where('list_id', $id);
+    public function updateItem($itemId, $listId, $data){
+        $this->db->where('item_id', $itemId);
+        $this->db->where('list_id', $listId);
         $this->db->update('Items', $data);
     }
 
